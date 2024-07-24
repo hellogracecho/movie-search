@@ -6,17 +6,14 @@
     <main>
       <MovieSearch @searchInput="searchInput" @search="search" />
       <div class="container">
-        <div
-          v-for="movie in filteredResults"
-          :key="movie.imdbID"
-          class="item"
-          @click="openDetail(movie.imdbID)"
-        >
+        <div v-for="movie in filteredResults" :key="movie.imdbID" class="item">
           <img :src="movie.Poster" alt="Movie Poster" />
           <h3>{{ movie.Title }}</h3>
+          <p>{{ movie.Year }}</p>
+          <!-- this button does nothing -->
+          <button>Read More</button>
         </div>
       </div>
-      <MovieDetail v-if="selected.Title" :selected="selected" @closeDetail="closeDetail" />
     </main>
   </div>
 </template>
@@ -37,7 +34,8 @@ export default {
       s: '', // Initialize search query
       results: [], // Initialize results array
       selected: {}, // Initialize selected movie object
-      apiurl: 'http://www.omdbapi.com/?i=tt3896198&apikey=ab5f3b95'
+      apiurl: 'http://www.omdbapi.com/?apikey=ab5f3b95'
+      //http://www.omdbapi.com/?apikey=ab5f3b95&
     }
   },
   mounted() {
@@ -46,42 +44,26 @@ export default {
   },
   methods: {
     fetchInitialMovies() {
-      // Keywords for initial movie search
-      const keywords = ['hindi', 'avengers', 'comedy']
-
-      // Fetch movies for each keyword
-      // and combine the results
-      Promise.all(
-        keywords.map((keyword) => {
-          return axios(this.apiurl + '&s=' + keyword)
-            .then(({ data }) => data.Search || [])
-            .catch((error) => {
-              console.error('Error fetching movies:', error)
-              return []
-            })
+      return axios(this.apiurl + '&s=' + 'korean')
+        .then(({ data }) => {
+          this.results = data.Search || []
         })
-      ).then((results) => {
-        this.results = results.flat()
-        // Combine arrays of movies
-      })
+        .catch((error) => {
+          console.error('Error fetching movies:', error)
+          return []
+        })
     },
     searchInput(e) {
       this.s = e.target.value
     },
     search(e) {
       if (e.key === 'Enter') {
+        // TODO: debounce for better UX search
         axios(this.apiurl + '&s=' + this.s).then(({ data }) => {
+          console.log(data)
           this.results = data.Search || []
         })
       }
-    },
-    openDetail(id) {
-      axios(this.apiurl + '&i=' + id).then(({ data }) => {
-        this.selected = data
-      })
-    },
-    closeDetail() {
-      this.selected = {}
     }
   },
   computed: {

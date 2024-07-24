@@ -14,7 +14,6 @@
 export default {
   name: 'MovieSearch',
   methods: {
-    // TODO: debounce for better UX search
     searchInput(e) {
       this.$emit('searchInput', e)
     },

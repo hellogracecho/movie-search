@@ -1,13 +1,38 @@
 <template>
-  <div class="search-bar">
+  <p class="mb-2 text-secondary">
+    Search movies by typing and hit enter key or click search button.
+  </p>
+  <div class="flex">
     <input
       type="text"
+      id="search_movie"
       placeholder="Search movies..."
-      class="search"
+      class="block w-full max-w-lg h-12 p-2.5 rounded-l-lg bg-gray-50 border border-secondary focus:ring-primary focus:border-primary"
       @input="searchInput"
       @keypress.enter="search"
     />
-    <button @click.prevent="search">Search</button>
+    <button
+      type="button"
+      @click.prevent="search"
+      class="w-12 h-12 p-3 rounded-r-lg focus:outline-none text-white bg-secondary hover:bg-opacity-80 focus:ring-4 focus:ring-green-300 font-bold uppercase"
+    >
+      <span class="sr-only">Search</span>
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          class="stroke-white"
+          d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
   </div>
 </template>
 
@@ -24,25 +49,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.search-bar {
-  margin: 20px auto;
-  max-width: 400px;
-}
-
-.search {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease;
-}
-
-.search:focus {
-  outline: none;
-  border-color: #333;
-}
-</style>

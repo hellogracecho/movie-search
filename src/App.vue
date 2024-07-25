@@ -4,11 +4,7 @@ import MovieLanding from './components/MovieLanding.vue'
 
 <template>
   <header>
-    <!-- Logo -->
-    <!-- <img alt="App logo" class="logo" src="./assets/??.svg" width="125" height="125" /> -->
-
-    <div className="text-lg text-primary underline">Movie Data</div>
-    <div className="text-2xl text-red underline">XL Text</div>
+    <h1 class="mb-4 text-5xl text-primary">Graceful Movie Data</h1>
   </header>
 
   <main>

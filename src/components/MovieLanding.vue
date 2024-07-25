@@ -1,10 +1,10 @@
 <template>
   <div class="App">
-    <header class="App-header">
-      <h1>Search the Movie</h1>
-    </header>
     <main>
       <MovieSearch @searchInput="searchInput" @search="search" />
+
+      <p v-show="this.errorMessage">Error: {{ this.errorMessage }}</p>
+
       <div class="container">
         <div v-for="movie in filteredResults" :key="movie.imdbID" class="item">
           <img :src="movie.Poster" alt="Movie Poster" />
@@ -21,57 +21,51 @@
 <script>
 import axios from 'axios'
 import MovieSearch from './MovieSearch.vue'
-import MovieDetail from './MovieDetail.vue'
 
 export default {
   name: 'MovieLanding',
   components: {
-    MovieSearch,
-    MovieDetail
+    MovieSearch
   },
   data() {
     return {
-      s: '', // Initialize search query
-      results: [], // Initialize results array
-      selected: {}, // Initialize selected movie object
-      apiurl: 'http://www.omdbapi.com/?apikey=ab5f3b95'
-      //http://www.omdbapi.com/?apikey=ab5f3b95&
+      results: [],
+      searchString: '',
+      apiUrl: 'http://www.omdbapi.com/?apikey=ab5f3b95',
+      errorMessage: ''
     }
   },
   mounted() {
-    // Fetch initial movies based on specific keywords
     this.fetchInitialMovies()
   },
   methods: {
     fetchInitialMovies() {
-      return axios(this.apiurl + '&s=' + 'korean')
-        .then(({ data }) => {
-          this.results = data.Search || []
+      // search parameter is required on OMDb API
+      return axios(this.apiUrl + '&s=' + 'canada')
+        .then((response) => {
+          this.results = response.data.Search || []
         })
         .catch((error) => {
-          console.error('Error fetching movies:', error)
+          console.log(error)
           return []
         })
     },
     searchInput(e) {
-      this.s = e.target.value
+      this.searchString = e.target.value
     },
     search(e) {
+      // TODO: debounce for better UX search
+      axios(this.apiUrl + '&s=' + this.searchString).then(({ data }) => {
+        this.results = data.Search || []
+        this.errorMessage = data.Response === 'False' ? data.Error : 'updated'
+      })
       if (e.key === 'Enter') {
-        // TODO: debounce for better UX search
-        axios(this.apiurl + '&s=' + this.s).then(({ data }) => {
-          console.log(data)
-          this.results = data.Search || []
-        })
       }
     }
   },
   computed: {
     filteredResults() {
-      // Filter results based on search query
-      return this.results.filter((movie) =>
-        movie.Title.toLowerCase().includes(this.s.toLowerCase())
-      )
+      return this.results
     }
   }
 }

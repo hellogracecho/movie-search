@@ -2,11 +2,12 @@
   <div class="search-bar">
     <input
       type="text"
-      placeholder="Search for a Movie..."
+      placeholder="Search movies..."
       class="search"
       @input="searchInput"
       @keypress.enter="search"
     />
+    <button @click.prevent="search">Search</button>
   </div>
 </template>
 

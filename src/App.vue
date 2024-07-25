@@ -33,9 +33,5 @@ header {
     padding-right: calc(var(--section-gap) / 2);
     font-size: 2rem;
   }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
 }
 </style>

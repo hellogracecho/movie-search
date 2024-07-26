@@ -1,6 +1,6 @@
 <template>
   <p class="mb-2 text-secondary">
-    Search movies by typing and hit enter key or click search button.
+    Type to search and press enter key or click the button.
   </p>
   <div class="flex">
     <input

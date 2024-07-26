@@ -62,6 +62,7 @@
 <script>
 import axios from 'axios'
 import MovieSearch from './MovieSearch.vue'
+import placeholderImage from '../assets/placeholder.png';
 
 export default {
   name: 'MovieLanding',
@@ -74,7 +75,7 @@ export default {
       searchString: '',
       apiUrl: 'https://www.omdbapi.com/?apikey=ab5f3b95',
       errorMessage: '',
-      placeholderImage: '/placeholder.png',
+      placeholderImage: placeholderImage,
       suggestedKeywords: ['paris', 'olympic', '2024', 'vancouver', 'kimchi', 'bbq']
     }
   },

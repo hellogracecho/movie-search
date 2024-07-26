@@ -5,7 +5,6 @@
   <div class="flex">
     <input
       type="text"
-      id="search_movie"
       placeholder="Search movies..."
       class="block w-full max-w-lg h-12 p-2.5 rounded-l-lg bg-gray-50 border border-secondary focus:ring-primary focus:border-primary"
       @input="searchInput"
@@ -14,7 +13,7 @@
     <button
       type="button"
       @click.prevent="search"
-      class="w-12 h-12 p-3 rounded-r-lg focus:outline-none text-white bg-secondary hover:bg-opacity-80 focus:ring-4 focus:ring-green-300 font-bold uppercase"
+      class="w-12 h-12 p-3 rounded-r-lg focus:outline-none text-white bg-secondary hover:bg-opacity-80 focus:ring-4 focus:ring-primary font-bold uppercase"
     >
       <span class="sr-only">Search</span>
       <svg

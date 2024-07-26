@@ -25,3 +25,7 @@ npm run build
 ```sh
 npm run lint
 ```
+
+- Responsive Design
+- Display error message
+- Placeholder image when poster url is invalid. Try to search "123" :)

@@ -1,36 +1,56 @@
 <template>
   <div class="App">
-    <main>
-      <MovieSearch @searchInput="searchInput" @search="search" />
-
-      <div class="mt-8 md:mt-10">
-        <h4 v-show="this.errorMessage" class="mb-4 text-warning">
-          <span class="text-3xl">😬</span> Oops! {{ this.errorMessage }}. Please try again.
-        </h4>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+    <main class="grid grid-cols-1 lg:grid-cols-5 gap-12">
+      <section class="lg:col-span-4">
+        <MovieSearch @searchInput="searchInput" @search="search" />
+        <div class="mt-8 md:mt-10">
+          <h4 v-show="this.errorMessage" class="mb-4 text-warning">
+            <span class="text-3xl">😬</span> Oops! {{ this.errorMessage }}. Please try again.
+          </h4>
           <div
-            v-for="movie in filteredResults"
-            :key="movie.imdbID"
-            class="flex flex-col border border-secondary rounded-lg shadow-sm shadow-secondary"
+            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-8"
           >
-            <div class="aspect-w-2 aspect-h-3">
-              <img class="rounded-t-lg object-cover" :src="movie.Poster" alt="Movie Poster" />
-            </div>
-            <div class="grow flex flex-col justify-between px-3 py-2">
-              <div>
-                <h3 class="mb-0.5 text-lg leading-tight text-primary">{{ movie.Title }}</h3>
-                <p class="mb-3 text-sm opacity-80">{{ movie.Year }}</p>
+            <div
+              v-for="movie in filteredResults"
+              :key="movie.imdbID"
+              class="flex flex-col border border-secondary rounded-lg shadow-sm shadow-secondary"
+            >
+              <div class="aspect-w-2 aspect-h-3">
+                <img
+                  class="rounded-t-lg object-cover"
+                  :src="movie.Poster !== 'N/A' ? movie.Poster : placeholderImage"
+                  alt="Movie Poster"
+                />
               </div>
-              <!-- this button does nothing -->
-              <button
-                class="w-full h-10 py-2 px-3 rounded-lg focus:outline-none text-white bg-secondary hover:bg-opacity-80 focus:ring-4 focus:ring-green-300 uppercase"
-              >
-                Read More
-              </button>
+              <div class="grow flex flex-col justify-between px-3 py-2">
+                <div>
+                  <h3 class="mb-0.5 text-lg leading-tight text-primary">{{ movie.Title }}</h3>
+                  <p class="mb-3 text-sm opacity-80">{{ movie.Year }}</p>
+                </div>
+                <!-- this button does nothing -->
+                <button
+                  class="w-full h-10 py-2 px-3 rounded-lg focus:outline-none text-white bg-secondary hover:bg-opacity-80 focus:ring-4 focus:ring-primary uppercase"
+                >
+                  Details
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
+      <section class="hidden lg:block lg:col-span-1">
+        <h2 class="mb-2">Suggested Keywords:</h2>
+        <div class="flex gap-2 flex-wrap">
+          <div v-for="keyword in suggestedKeywords" :key="keyword">
+            <button
+              @click.prevent="search(keyword, true)"
+              class="h-8 py-1 px-2 rounded-lg focus:outline-none border border-primary text-primary hover:bg-primary hover:bg-opacity-10 focus:ring-4 focus:ring-secondary text-sm uppercase"
+            >
+              {{ keyword }}
+            </button>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 </template>
@@ -49,7 +69,9 @@ export default {
       results: [],
       searchString: '',
       apiUrl: 'http://www.omdbapi.com/?apikey=ab5f3b95',
-      errorMessage: ''
+      errorMessage: '',
+      placeholderImage: '/placeholder.png',
+      suggestedKeywords: ['paris', 'olympic', '2024', 'vancouver', 'kimchi', 'bbq']
     }
   },
   mounted() {
@@ -70,14 +92,15 @@ export default {
     searchInput(e) {
       this.searchString = e.target.value
     },
-    search(e) {
-      // TODO: debounce for better UX search
+    search(e, isSuggested = false) {
+      if (isSuggested) {
+        this.searchString = e
+      }
+
       axios(this.apiUrl + '&s=' + this.searchString).then(({ data }) => {
         this.results = data.Search || []
         this.errorMessage = data.Response === 'False' ? data.Error : ''
       })
-      if (e.key === 'Enter') {
-      }
     }
   },
   computed: {

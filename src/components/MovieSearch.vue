@@ -35,7 +35,7 @@
     </button>
     <button
       @click="clearInput"
-      class="sm:ml-3 py-1 px-2 rounded-lg focus:outline-none focus:ring-4 focus:ring-primary text-secondary hover:underline text-sm uppercase"
+      class="sm:ml-3 py-1 px-2 rounded-lg focus:outline-none focus:ring-4 focus:ring-primary text-secondary hover:underline text-xs md:text-sm uppercase"
     >
       Clear Search
     </button>

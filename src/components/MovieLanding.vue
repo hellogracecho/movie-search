@@ -31,6 +31,7 @@
                   <h2 class="mb-0.5 text-lg leading-tight text-primary">{{ movie.Title }}</h2>
                   <p class="mb-3 text-sm opacity-80">{{ movie.Year }}</p>
                 </div>
+                <!-- this button does nothing -->
                 <button
                   class="w-full h-10 py-2 px-3 rounded-lg focus:outline-none text-white bg-secondary hover:bg-opacity-80 focus:ring-4 focus:ring-primary uppercase"
                 >

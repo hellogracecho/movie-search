@@ -71,7 +71,7 @@ export default {
     return {
       results: [],
       searchString: '',
-      apiUrl: 'http://www.omdbapi.com/?apikey=ab5f3b95',
+      apiUrl: 'https://www.omdbapi.com/?apikey=ab5f3b95',
       errorMessage: '',
       placeholderImage: '/placeholder.png',
       suggestedKeywords: ['paris', 'olympic', '2024', 'vancouver', 'kimchi', 'bbq']

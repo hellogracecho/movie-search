@@ -7,7 +7,8 @@
       type="text"
       placeholder="Search movies..."
       class="block w-full max-w-lg h-12 p-2.5 rounded-l-lg bg-gray-50 border border-secondary focus:ring-primary focus:border-primary"
-      @input="searchInput"
+      :value="searchQuery"
+      @input="updateSearchQuery"
       @keypress.enter="search"
     />
     <button
@@ -32,18 +33,33 @@
         />
       </svg>
     </button>
+    <button
+      @click="clearInput"
+      class="sm:ml-3 py-1 px-2 rounded-lg focus:outline-none focus:ring-4 focus:ring-primary text-secondary hover:underline text-sm uppercase"
+    >
+      Clear Search
+    </button>
   </div>
 </template>
 
 <script>
 export default {
   name: 'MovieSearch',
+  props: {
+    searchQuery: {
+      type: String,
+      default: ''
+    }
+  },
   methods: {
-    searchInput(e) {
-      this.$emit('searchInput', e)
+    updateSearchQuery(e) {
+      this.$emit('update:searchQuery', e.target.value)
     },
-    search(e) {
-      this.$emit('search', e)
+    search() {
+      this.$emit('search', this.searchQuery)
+    },
+    clearInput() {
+      this.$emit('update:searchQuery', '')
     }
   }
 }

@@ -2,7 +2,11 @@
   <div class="App">
     <main class="grid grid-cols-1 lg:grid-cols-5 gap-12">
       <section class="lg:col-span-4">
-        <MovieSearch @searchInput="searchInput" @search="search" />
+        <MovieSearch
+          :searchQuery="searchString"
+          @update:searchQuery="searchInput"
+          @search="search"
+        />
         <div class="mt-8 md:mt-10">
           <h4 v-show="this.errorMessage" class="mb-4 text-warning">
             <span class="text-3xl">😬</span> Oops! {{ this.errorMessage }}. Please try again.
@@ -24,10 +28,9 @@
               </div>
               <div class="grow flex flex-col justify-between px-3 py-2">
                 <div>
-                  <h3 class="mb-0.5 text-lg leading-tight text-primary">{{ movie.Title }}</h3>
+                  <h2 class="mb-0.5 text-lg leading-tight text-primary">{{ movie.Title }}</h2>
                   <p class="mb-3 text-sm opacity-80">{{ movie.Year }}</p>
                 </div>
-                <!-- this button does nothing -->
                 <button
                   class="w-full h-10 py-2 px-3 rounded-lg focus:outline-none text-white bg-secondary hover:bg-opacity-80 focus:ring-4 focus:ring-primary uppercase"
                 >
@@ -39,11 +42,11 @@
         </div>
       </section>
       <section class="hidden lg:block lg:col-span-1">
-        <h2 class="mb-2">Suggested Keywords:</h2>
+        <h3 class="mb-2">Suggested Keywords:</h3>
         <div class="flex gap-2 flex-wrap">
           <div v-for="keyword in suggestedKeywords" :key="keyword">
             <button
-              @click.prevent="search(keyword, true)"
+              @click.prevent="search(keyword)"
               class="h-8 py-1 px-2 rounded-lg focus:outline-none border border-primary text-primary hover:bg-primary hover:bg-opacity-10 focus:ring-4 focus:ring-secondary text-sm uppercase"
             >
               {{ keyword }}
@@ -79,7 +82,6 @@ export default {
   },
   methods: {
     fetchInitialMovies() {
-      // search parameter is required on OMDb API
       return axios(this.apiUrl + '&s=' + 'grace')
         .then((response) => {
           this.results = response.data.Search || []
@@ -89,12 +91,12 @@ export default {
           return []
         })
     },
-    searchInput(e) {
-      this.searchString = e.target.value
+    searchInput(query) {
+      this.searchString = query
     },
-    search(e, isSuggested = false) {
-      if (isSuggested) {
-        this.searchString = e
+    search(query) {
+      if (typeof query === 'string') {
+        this.searchString = query
       }
 
       axios(this.apiUrl + '&s=' + this.searchString).then(({ data }) => {

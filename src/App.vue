@@ -4,7 +4,7 @@ import MovieLanding from './components/MovieLanding.vue'
 
 <template>
   <header>
-    <h1 class="mb-4 text-5xl text-primary">Graceful Movie Data</h1>
+    <h1 class="mb-6 sm:mb-8 text-5xl text-primary">Graceful Movie Search</h1>
   </header>
 
   <main>

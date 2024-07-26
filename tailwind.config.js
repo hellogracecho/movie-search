@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 const defaultTheme = require('tailwindcss/defaultTheme')
-const aspectRatio = require('@tailwindcss/aspect-ratio')
 
 export default {
   purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],

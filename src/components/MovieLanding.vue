@@ -96,6 +96,7 @@ export default {
     },
     search(query) {
       if (typeof query === 'string') {
+        // when clicking suggested keywords
         this.searchString = query
       }
 

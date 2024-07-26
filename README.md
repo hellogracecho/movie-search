@@ -1,6 +1,16 @@
 # Movie Search
 
-This project is built with Vue 3.
+This project is built with Vue 3 as a main framework, Tailwind for styling.
+
+## Highlights
+
+- Each search result displays poster, title, year of release and a button. The button does
+  nothing when clicking.
+- Search up the movies by hitting the enter/return key or click the search button.
+- You can clear up the input text by clicking clear search.
+- Responsive design
+- Display error message to indicate the issue.
+- Placeholder image when poster url is invalid. Try to look up "123"
 
 ## Project Setup
 
@@ -19,13 +29,3 @@ npm run dev
 ```sh
 npm run build
 ```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
-
-- Responsive Design
-- Display error message
-- Placeholder image when poster url is invalid. Try to search "123" :)

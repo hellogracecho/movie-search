@@ -2,6 +2,8 @@
 
 This project is built with Vue 3 as a main framework, Tailwind for styling.
 
+Visit my [Github Page here](https://hellogracecho.github.io/movie-search/) to check out.
+
 ## Highlights
 
 - Each search result displays poster, title, year of release and a button. The button does

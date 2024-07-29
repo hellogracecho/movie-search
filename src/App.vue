@@ -9,7 +9,6 @@ import MovieLanding from './components/MovieLanding.vue'
 
   <main>
     <MovieLanding />
-    <TheWelcome />
   </main>
 </template>
 

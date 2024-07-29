@@ -62,7 +62,7 @@
 <script>
 import axios from 'axios'
 import MovieSearch from './MovieSearch.vue'
-import placeholderImage from '../assets/placeholder.png';
+import placeholderImage from '../assets/placeholder.png'
 
 export default {
   name: 'MovieLanding',
@@ -90,6 +90,7 @@ export default {
         })
         .catch((error) => {
           console.log(error)
+          this.errorMessage = error;
           return []
         })
     },
@@ -97,10 +98,7 @@ export default {
       this.searchString = query
     },
     search(query) {
-      if (typeof query === 'string') {
-        // when clicking suggested keywords
-        this.searchString = query
-      }
+      this.searchString = query
 
       axios(this.apiUrl + '&s=' + this.searchString).then(({ data }) => {
         this.results = data.Search || []
